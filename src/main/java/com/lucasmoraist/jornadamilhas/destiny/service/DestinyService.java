@@ -66,7 +66,7 @@ public class DestinyService {
         this.repository.delete(destiny);
     }
 
-    private Destiny findDestinyById(Long id){
+    public Destiny findDestinyById(Long id){
         return this.repository.findById(id).orElseThrow(() -> new RuntimeException("Destiny Not Found"));
     }
 

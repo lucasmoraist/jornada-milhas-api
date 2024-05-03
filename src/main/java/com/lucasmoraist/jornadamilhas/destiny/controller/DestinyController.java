@@ -25,6 +25,13 @@ public class DestinyController {
         return ResponseEntity.ok().body(this.service.findAllDestiny());
     }
 
+    @GetMapping("{id}")
+    public ResponseEntity<Destiny> findDestinyById(@PathVariable Long id){
+        log.info("Buscando destino com id: "+id);
+        var destino = this.service.findDestinyById(id);
+        return ResponseEntity.ok(destino);
+    }
+
     @GetMapping("/{nameDestiny}")
     public ResponseEntity<Destiny> findDestinyByName(@PathVariable String nameDestiny){
         log.info("Buscando destino com nome: "+nameDestiny);
