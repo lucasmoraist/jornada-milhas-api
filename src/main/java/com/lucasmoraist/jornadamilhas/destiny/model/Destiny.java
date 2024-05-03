@@ -20,6 +20,10 @@ public class Destiny {
     private String nameDestiny;
     @Column(nullable = false)
     private BigDecimal price;
-    private String photo;
+    @Column(length = 160, nullable = false)
+    private String meta;
+    private String description;
+    private String photo1;
+    private String photo2;
 
 }

@@ -26,11 +26,19 @@ public class DestinyService {
     }
 
     public Destiny createDestiny(CreateOrUpdateDestinyDTO dto){
+
         Destiny newDestiny = Destiny.builder()
                 .nameDestiny(dto.nameDestiny())
                 .price(dto.price())
-                .photo(dto.photo())
+                .meta(dto.meta())
+                .description(dto.description())
+                .photo1(dto.photo1())
+                .photo2(dto.photo2())
                 .build();
+
+        if(dto.description() == null){
+            newDestiny.setDescription("");
+        }
 
         this.repository.save(newDestiny);
         return newDestiny;
@@ -41,15 +49,21 @@ public class DestinyService {
 
         destiny.setNameDestiny(dto.nameDestiny());
         destiny.setPrice(dto.price());
-        destiny.setPhoto(dto.photo());
+        destiny.setMeta(dto.meta());
+        destiny.setDescription(dto.description());
+        destiny.setPhoto1(dto.photo1());
+        destiny.setPhoto2(dto.photo2());
 
+        if(dto.description() == null){
+            destiny.setDescription("");
+        }
+        this.repository.save(destiny);
         return destiny;
     }
 
-    public String deleteDestiny(Long id){
+    public void deleteDestiny(Long id){
         var destiny = this.findDestinyById(id);
         this.repository.delete(destiny);
-        return "Excluído com sucesso!";
     }
 
     private Destiny findDestinyById(Long id){
