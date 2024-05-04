@@ -1,9 +1,11 @@
 package com.lucasmoraist.jornadamilhas.testimonials.service;
 
+import com.lucasmoraist.jornadamilhas.exceptions.TestimonialsNotFound;
 import com.lucasmoraist.jornadamilhas.testimonials.dto.CreateOrUpdateTestimonialsDTO;
 import com.lucasmoraist.jornadamilhas.testimonials.model.Testimonials;
 import com.lucasmoraist.jornadamilhas.testimonials.repository.TestimonialsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -23,24 +25,32 @@ public class TestimonialsService {
     }
 
     public Testimonials createTestimonials(CreateOrUpdateTestimonialsDTO dto){
-        Testimonials newTestimonials = Testimonials.builder()
-                .nameUser(dto.nameUser())
-                .testimonials(dto.testimonials())
-                .image(dto.image())
-                .build();
+        try{
+            Testimonials newTestimonials = Testimonials.builder()
+                    .nameUser(dto.nameUser())
+                    .testimonials(dto.testimonials())
+                    .image(dto.image())
+                    .build();
 
-        this.repository.save(newTestimonials);
-        return newTestimonials;
+            this.repository.save(newTestimonials);
+            return newTestimonials;
+        }catch (DataIntegrityViolationException e){
+            throw new DataIntegrityViolationException("Preencha os valores obrigatórios");
+        }
     }
 
     public Testimonials updateTestimonials(Long id, CreateOrUpdateTestimonialsDTO dto) {
-        var testimonials = this.findTestimonialsById(id);
+        try{
+            var testimonials = this.findTestimonialsById(id);
 
-        testimonials.setNameUser(dto.nameUser());
-        testimonials.setTestimonials(dto.testimonials());
-        testimonials.setImage(dto.image());
+            testimonials.setNameUser(dto.nameUser());
+            testimonials.setTestimonials(dto.testimonials());
+            testimonials.setImage(dto.image());
 
-        return testimonials;
+            return testimonials;
+        }catch (DataIntegrityViolationException e){
+            throw new DataIntegrityViolationException("Preencha os valores obrigatórios");
+        }
     }
 
     public String deleteTestimonials(Long id){
@@ -50,7 +60,8 @@ public class TestimonialsService {
     }
 
     private Testimonials findTestimonialsById(Long id){
-        return this.repository.findById(id).orElseThrow(() -> new RuntimeException("Testimonials Not Found"));
+        return this.repository.findById(id)
+                .orElseThrow(TestimonialsNotFound::new);
     }
 
 }
