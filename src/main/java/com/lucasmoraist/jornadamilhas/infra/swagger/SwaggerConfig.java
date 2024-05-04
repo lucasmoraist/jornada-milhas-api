@@ -24,9 +24,9 @@ public class SwaggerConfig {
                                 .email("luksmnt1101@gmail.com")
                         )
                         .license(new License()
-                                .name("")
-                                .identifier("")
-                                .url("")
+                                .name("MIT LICENSE")
+                                .identifier("MIT")
+                                .url("https://github.com/lucasmoraist/jornada-milhas-api/blob/main/LICENSE")
                         )
                 );
     }
