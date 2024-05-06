@@ -1,8 +1,6 @@
 package com.lucasmoraist.jornadamilhas.infra.exception;
 
-import com.lucasmoraist.jornadamilhas.exceptions.DestinyNotFound;
-import com.lucasmoraist.jornadamilhas.exceptions.ExceptionDTO;
-import com.lucasmoraist.jornadamilhas.exceptions.TestimonialsNotFound;
+import com.lucasmoraist.jornadamilhas.exceptions.*;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -31,4 +29,21 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
         return ResponseEntity.ok(dto);
     }
 
+    @ExceptionHandler(UserNotFound.class)
+    private ResponseEntity<ExceptionDTO> userNotFound(UserNotFound e){
+        ExceptionDTO dto = new ExceptionDTO("User Not Found", HttpStatus.NOT_FOUND);
+        return ResponseEntity.ok(dto);
+    }
+
+    @ExceptionHandler(EmailDuplicate.class)
+    private ResponseEntity<ExceptionDTO> emailDuplicate(EmailDuplicate e){
+        ExceptionDTO dto = new ExceptionDTO(e.getMessage(), HttpStatus.BAD_REQUEST);
+        return ResponseEntity.ok(dto);
+    }
+
+    @ExceptionHandler(PasswordException.class)
+    private ResponseEntity<ExceptionDTO> passwordIncorret(PasswordException e){
+        ExceptionDTO dto = new ExceptionDTO("Senha incorreta", HttpStatus.BAD_REQUEST);
+        return ResponseEntity.ok(dto);
+    }
 }

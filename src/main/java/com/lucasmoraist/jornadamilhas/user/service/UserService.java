@@ -1,5 +1,8 @@
 package com.lucasmoraist.jornadamilhas.user.service;
 
+import com.lucasmoraist.jornadamilhas.exceptions.EmailDuplicate;
+import com.lucasmoraist.jornadamilhas.exceptions.PasswordException;
+import com.lucasmoraist.jornadamilhas.exceptions.UserNotFound;
 import com.lucasmoraist.jornadamilhas.infra.security.TokenService;
 import com.lucasmoraist.jornadamilhas.user.dto.CreateOrUpdateUserDTO;
 import com.lucasmoraist.jornadamilhas.user.dto.LoginDTO;
@@ -26,11 +29,11 @@ public class UserService {
         return this.userRepository.findAll();
     }
 
-    public User findUserById(Long id) throws Exception{
-        return this.userRepository.findById(id).orElseThrow(() -> new Exception("User Not Found"));
+    public User findUserById(Long id) {
+        return this.userRepository.findById(id).orElseThrow(UserNotFound::new);
     }
 
-    public void createUser(CreateOrUpdateUserDTO dto) throws Exception{
+    public void createUser(CreateOrUpdateUserDTO dto) {
         try{
             Optional<User> verifyIfExistEmail = this.userRepository.findByEmail(dto.email());
 
@@ -45,19 +48,19 @@ public class UserService {
 
                 this.userRepository.save(newUser);
             }else{
-                throw new Exception("Este email já existe");
+                throw new EmailDuplicate("Este email já existe");
             }
         }catch (DataIntegrityViolationException e){
             throw new DataIntegrityViolationException("Campos obrigatórios não preenchidos");
         }
     }
 
-    public ResponseDTO authLogin(LoginDTO dto) throws Exception{
+    public ResponseDTO authLogin(LoginDTO dto) {
         try{
-            User user = this.userRepository.findByEmail(dto.email()).orElseThrow(() -> new Exception("Campos obrigatórios não preenchidos"));
+            User user = this.userRepository.findByEmail(dto.email()).orElseThrow(() -> new DataIntegrityViolationException("Campos obrigatórios não preenchidos"));
 
             if(!passwordEncoder.matches(dto.password(), user.getPassword())){
-                throw new Exception("Senha incorreta");
+                throw new PasswordException();
             }
 
             String token = this.tokenService.generateToken(user);
@@ -67,12 +70,12 @@ public class UserService {
         }
     }
 
-    public User updateUser(Long id, CreateOrUpdateUserDTO dto) throws Exception{
-        User user = this.userRepository.findById(id).orElseThrow(()->new Exception("User Not Found"));
+    public User updateUser(Long id, CreateOrUpdateUserDTO dto) {
+        User user = this.userRepository.findById(id).orElseThrow(UserNotFound::new);
 
         var verifyIfExistEmail = this.userRepository.findByEmail(dto.email());
         if(verifyIfExistEmail.isPresent()){
-            throw new Exception("Este email já existe");
+            throw new EmailDuplicate();
         }
 
         user.setName(dto.name());
@@ -89,8 +92,8 @@ public class UserService {
         return user;
     }
 
-    public void deleteUser(Long id) throws Exception{
-        var user = this.userRepository.findById(id).orElseThrow(()-> new Exception(""));
+    public void deleteUser(Long id) {
+        var user = this.userRepository.findById(id).orElseThrow(UserNotFound::new);
         this.userRepository.delete(user);
     }
 

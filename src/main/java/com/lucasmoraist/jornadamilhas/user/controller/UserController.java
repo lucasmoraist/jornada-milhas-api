@@ -23,28 +23,28 @@ public class UserController {
     }
 
     @GetMapping("/list-user/{id}")
-    public ResponseEntity<User> findById(@PathVariable Long id) throws Exception{
+    public ResponseEntity<User> findById(@PathVariable Long id) {
         return ResponseEntity.ok().body(this.service.findUserById(id));
     }
 
     @PostMapping("auth/register")
-    public ResponseEntity<String> register(@RequestBody CreateOrUpdateUserDTO dto) throws Exception{
+    public ResponseEntity<String> register(@RequestBody CreateOrUpdateUserDTO dto) {
         this.service.createUser(dto);
         return ResponseEntity.ok("Conta criada com sucesso!");
     }
 
     @PostMapping("auth/login")
-    public ResponseEntity<ResponseDTO> login(@RequestBody LoginDTO dto) throws Exception{
+    public ResponseEntity<ResponseDTO> login(@RequestBody LoginDTO dto) {
         return ResponseEntity.ok().body(this.service.authLogin(dto));
     }
 
     @PutMapping("update-user/{id}")
-    public ResponseEntity<User> update(@PathVariable Long id, @RequestBody CreateOrUpdateUserDTO dto) throws Exception{
+    public ResponseEntity<User> update(@PathVariable Long id, @RequestBody CreateOrUpdateUserDTO dto) {
         return ResponseEntity.ok().body(this.service.updateUser(id, dto));
     }
 
     @DeleteMapping("delete-user/{id}")
-    public ResponseEntity<String> delete(@PathVariable Long id) throws Exception{
+    public ResponseEntity<String> delete(@PathVariable Long id) {
         this.service.deleteUser(id);
         return ResponseEntity.ok("Excluido com sucesso");
     }
