@@ -1,15 +1,23 @@
 package com.lucasmoraist.jornadamilhas.infra.exception;
 
 import com.lucasmoraist.jornadamilhas.exceptions.*;
+import jakarta.validation.ConstraintViolationException;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
 @ControllerAdvice
 public class RestExceptionHandler extends ResponseEntityExceptionHandler {
+
+    @ExceptionHandler(ConstraintViolationException.class)
+    private ResponseEntity<ExceptionDTO> errorRegisterBody(ConstraintViolationException e){
+        ExceptionDTO dto = new ExceptionDTO(e.getLocalizedMessage(), HttpStatus.BAD_REQUEST);
+        return ResponseEntity.ok(dto);
+    }
 
     @ExceptionHandler(DataIntegrityViolationException.class)
     private ResponseEntity<ExceptionDTO> nullPointer(DataIntegrityViolationException e){

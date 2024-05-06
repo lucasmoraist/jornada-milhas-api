@@ -1,6 +1,8 @@
 package com.lucasmoraist.jornadamilhas.user.model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.Pattern;
 import lombok.*;
 
 @Data
@@ -16,8 +18,10 @@ public class User {
     private Long id;
     @Column(length = 120,nullable = false)
     private String name;
+    @Email(message = "Digite um email válido.")
     @Column(nullable = false ,unique = true)
     private String email;
+    @Pattern(message = "Senha inválida",  regexp = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&-])[A-Za-z\\d@$!%*?&-]{8,}$")
     @Column(nullable = false)
     private String password;
 
