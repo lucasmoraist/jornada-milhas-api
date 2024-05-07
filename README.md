@@ -20,7 +20,7 @@ Para utilizar a API de Destinos de Viagem em seu ambiente local, siga as instru�
 
 - Clone o Repositório:
 ```
-git clone [https://github.com/seu-usuario/api-destinos-de-viagem.git](https://github.com/lucasmoraist/jornada-milhas-api.git)
+git clone https://github.com/lucasmoraist/jornada-milhas-api.git
 ```
 
 - Navegue até o Diretório:
