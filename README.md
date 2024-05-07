@@ -3,16 +3,16 @@
 # Documentação
 A API de Destinos de Viagem foi desenvolvida para oferecer aos usuários uma plataforma completa para descobrir e explorar possíveis destinos de viagem. Utilizando o framework Spring Boot, essa API permite aos usuários encontrar facilmente seu próximo destino de viagem ideal, além de fornecer informações valiosas sobre os destinos e depoimentos de turistas anteriores.
 
-# Recursos Principais
-## Catálogo de Destinos:
+## Recursos Principais
+### Catálogo de Destinos:
 Os usuários podem explorar uma ampla variedade de destinos de viagem disponíveis, incluindo informações como descrição, atrações turísticas e avaliações de outros turistas.
-## Depoimentos de Turistas:
+### Depoimentos de Turistas:
 Além das informações básicas sobre os destinos, os usuários podem acessar depoimentos de turistas anteriores, ajudando-os a tomar decisões informadas sobre suas viagens futuras.
-## Recomendações Personalizadas:
+### Recomendações Personalizadas:
 A API utiliza um sistema avançado de recomendação para sugerir destinos de viagem com base nas preferências do usuário, histórico de viagens anteriores e avaliações de outros usuários.
-## Autenticação e Segurança:
+### Autenticação e Segurança:
 Para garantir a segurança dos dados dos usuários, a API utiliza autenticação baseada em token JWT e Spring Security.
-## Documentação Detalhada:
+### Documentação Detalhada:
 A API é fornecida com uma documentação detalhada, que descreve todos os endpoints disponíveis, os parâmetros necessários, os tipos de resposta e exemplos de solicitações. Isso facilita a integração da API em aplicativos de terceiros e permite que os desenvolvedores compreendam rapidamente como utilizar todos os recursos oferecidos.
 
 # How to
