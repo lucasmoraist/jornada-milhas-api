@@ -33,7 +33,7 @@ public class UserService {
         return this.userRepository.findById(id).orElseThrow(UserNotFound::new);
     }
 
-    public void createUser(CreateOrUpdateUserDTO dto) {
+    public ResponseDTO createUser(CreateOrUpdateUserDTO dto) {
         try{
             Optional<User> verifyIfExistEmail = this.userRepository.findByEmail(dto.email());
 
@@ -46,7 +46,9 @@ public class UserService {
                         .password(passwordEncrypted)
                         .build();
 
+                String token = this.tokenService.generateToken(newUser);
                 this.userRepository.save(newUser);
+                return new ResponseDTO(dto.email(), token);
             }else{
                 throw new EmailDuplicate("Este email já existe");
             }
@@ -64,7 +66,7 @@ public class UserService {
             }
 
             String token = this.tokenService.generateToken(user);
-            return new ResponseDTO("Login feito com sucesso", token);
+            return new ResponseDTO(user.getEmail(), token);
         }catch (DataIntegrityViolationException e){
             throw new DataIntegrityViolationException("Campos obrigatórios não preenchidos");
         }

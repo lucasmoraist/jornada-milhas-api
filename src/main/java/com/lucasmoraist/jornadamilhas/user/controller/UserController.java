@@ -28,9 +28,8 @@ public class UserController {
     }
 
     @PostMapping("auth/register")
-    public ResponseEntity<String> register(@RequestBody CreateOrUpdateUserDTO dto) {
-        this.service.createUser(dto);
-        return ResponseEntity.ok("Conta criada com sucesso!");
+    public ResponseEntity<ResponseDTO> register(@RequestBody CreateOrUpdateUserDTO dto) {
+        return ResponseEntity.ok(this.service.createUser(dto));
     }
 
     @PostMapping("auth/login")
