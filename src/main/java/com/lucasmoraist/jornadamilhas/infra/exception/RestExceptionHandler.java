@@ -13,43 +13,43 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 public class RestExceptionHandler extends ResponseEntityExceptionHandler {
 
     @ExceptionHandler(ConstraintViolationException.class)
-    private ResponseEntity<ExceptionDTO> errorRegisterBody(ConstraintViolationException e){
+    public ResponseEntity<ExceptionDTO> errorRegisterBody(ConstraintViolationException e){
         ExceptionDTO dto = new ExceptionDTO(e.getLocalizedMessage(), HttpStatus.BAD_REQUEST);
         return ResponseEntity.ok(dto);
     }
 
     @ExceptionHandler(DataIntegrityViolationException.class)
-    private ResponseEntity<ExceptionDTO> nullPointer(DataIntegrityViolationException e){
+    public ResponseEntity<ExceptionDTO> nullPointer(DataIntegrityViolationException e){
         ExceptionDTO dto = new ExceptionDTO(e.getMessage(), HttpStatus.BAD_REQUEST);
         return ResponseEntity.ok(dto);
     }
 
     @ExceptionHandler(DestinyNotFound.class)
-    private ResponseEntity<ExceptionDTO> destinyNotFound(DestinyNotFound e){
+    public ResponseEntity<ExceptionDTO> destinyNotFound(DestinyNotFound e){
         ExceptionDTO dto = new ExceptionDTO(e.getMessage(), HttpStatus.NOT_FOUND);
         return ResponseEntity.ok(dto);
     }
 
     @ExceptionHandler(TestimonialsNotFound.class)
-    private ResponseEntity<ExceptionDTO> testimonialsNotFound(TestimonialsNotFound e){
+    public ResponseEntity<ExceptionDTO> testimonialsNotFound(TestimonialsNotFound e){
         ExceptionDTO dto = new ExceptionDTO("Testimonials Not Found", HttpStatus.NOT_FOUND);
         return ResponseEntity.ok(dto);
     }
 
     @ExceptionHandler(UserNotFound.class)
-    private ResponseEntity<ExceptionDTO> userNotFound(UserNotFound e){
+    public ResponseEntity<ExceptionDTO> userNotFound(UserNotFound e){
         ExceptionDTO dto = new ExceptionDTO("User Not Found", HttpStatus.NOT_FOUND);
         return ResponseEntity.ok(dto);
     }
 
     @ExceptionHandler(EmailDuplicate.class)
-    private ResponseEntity<ExceptionDTO> emailDuplicate(EmailDuplicate e){
+    public ResponseEntity<ExceptionDTO> emailDuplicate(EmailDuplicate e){
         ExceptionDTO dto = new ExceptionDTO(e.getMessage(), HttpStatus.BAD_REQUEST);
         return ResponseEntity.ok(dto);
     }
 
     @ExceptionHandler(PasswordException.class)
-    private ResponseEntity<ExceptionDTO> passwordIncorret(PasswordException e){
+    public ResponseEntity<ExceptionDTO> passwordIncorret(PasswordException e){
         ExceptionDTO dto = new ExceptionDTO("Senha incorreta", HttpStatus.BAD_REQUEST);
         return ResponseEntity.ok(dto);
     }
