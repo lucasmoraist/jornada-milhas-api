@@ -2,7 +2,6 @@ package com.lucasmoraist.jornadamilhas.destiny.controller;
 
 import com.lucasmoraist.jornadamilhas.destiny.dto.CreateOrUpdateDestinyDTO;
 import com.lucasmoraist.jornadamilhas.destiny.model.Destiny;
-import com.lucasmoraist.jornadamilhas.destiny.repository.DestinyRepository;
 import com.lucasmoraist.jornadamilhas.destiny.service.DestinyService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,7 +9,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @Slf4j
