@@ -130,6 +130,10 @@
 				<version>3.22.0</version>
 				<executions>
 					<execution>
+						<!--
+						- Posso utilizar para definir em que fase será executado o plugin do pmd
+						<phase>package</phase>
+						-->
 						<goals>
 							<goal>check</goal>
 							<goal>cpd-check</goal>

@@ -61,3 +61,27 @@ mvn site
 ```
 ./mvnw pmd:pmd
 ```
+
+## Proxy
+- Para configurar o proxy deve ser criado um arquivo `settings.xml` dentro da pasta `.m2`
+- A pasta `.m2` pode ser encontrada na pasta de usuários, dentro da raiz da máquina
+```
+<settings xmlns="http://maven.apache.org/SETTINGS/1.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/SETTINGS/1.0.0 https://maven.apache.org/xsd/settings-1.0.0.xsd">
+  ...
+  <proxies>
+    <proxy>
+      <id>myproxy</id>
+      <active>true</active>
+      <protocol>http</protocol>
+      <host>proxy.somewhere.com</host>
+      <port>8080</port>
+      <username>proxyuser</username>
+      <password>somepassword</password>
+      <nonProxyHosts>*.google.com|ibiblio.org</nonProxyHosts>
+    </proxy>
+  </proxies>
+  ...
+</settings>
+```
+
